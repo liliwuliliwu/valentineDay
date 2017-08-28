@@ -32,15 +32,49 @@
 
 
         /*奖品设计*/
-        .childpage{
+        .childpage,.success{
             height: 100%;
             width: 100%;
             position: fixed;
-            z-index: 1111111;
+            z-index: 1111;
             top: 0;
             left: 0;
         }
+        .success{
+            z-index: 1111111;
+            display: none;
+        }
+        .success .suc{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 110px;
+            font-size: 16px;
+            text-align: center;
+            border: 1px solid gray;
+            border-radius: 4px;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            box-sizing: border-box;
+            padding-top: 10px;
+            background-color: #fff;
+        }
+        .suc_btn{
+            color: #fff;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            background-color: #C8DB51;
+            border-radius: 0 0 4px 4px;
 
+        }
     </style>
 
 </head>
@@ -66,6 +100,13 @@
     </div>
     <div class="mask" id="mask"></div>
 </div>
+<div class="success">
+    <div class="suc">
+        <h3>恭喜您领取成功</h3>
+        <span>兑奖请联系你们的另一半，如无请绕走！</span>
+        <div class="suc_btn">确定</div>
+    </div>
+</div>
 <script>
     var index="";
     index=$(window.parent.document.getElementById("iframe1")).data("index");
@@ -88,16 +129,35 @@
         function showResetButton(){
             $(".main_box .show,.main_box .mask").fadeIn(300)
         }
-        $(".main_box .mask,.main_box .show .close,.main_box .show .btn").click(function  () {
+        $(".main_box .mask,.main_box .show .close,.main_box .show .btn").click(function  (e) {
 //            $(".main_box .show,.main_box .mask").fadeOut(300);
 //            console.log(window.parent.document.getElementById("iframe1"));
 //            console.log(window.parent.document.getElementById("jiangpin"));
 //            console.log(window.parent.document.getElementById("score0"));
-            $(window.parent.document.getElementById("jiangpin")).css("visibility","hidden");
-            $(window.parent.document.getElementById("score"+index)).remove();
-//            此最后移除
-            $(window.parent.document.getElementById("iframe1")).remove();
+
+            if(e.target.id=="btn"){
+                console.log("jinlai ")
+                $(".success").show();
+                $(".childpage").hide();
+                $(".success .suc_btn").click(function(){
+                $(window.parent.document.getElementById("jiangpin")).css("visibility","hidden");
+                $(window.parent.document.getElementById("score"+index)).remove();
+                $(".success").hide();
+                $(window.parent.document.getElementById("iframe1")).remove();
+                })
+            }else{
+                $(window.parent.document.getElementById("jiangpin")).css("visibility","hidden");
+                $(window.parent.document.getElementById("score"+index)).remove();
+                //            此最后移除
+                $(window.parent.document.getElementById("iframe1")).remove();
+            }
+
+
+
+
+
         })
+
     })
 
 
